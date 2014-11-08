@@ -1,0 +1,6 @@
+# aliases
+alias b="cd .." # back one folder
+mkcd () {
+  mkdir $1
+  cd $1
+}
