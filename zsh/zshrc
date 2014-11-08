@@ -52,7 +52,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export PATH="\
 ~/bin:\
-~/.rvm/bin:\
 /usr/local/bin:\
 /usr/bin:\
 /bin:\
@@ -60,6 +59,12 @@ export PATH="\
 /sbin:\
 /opt/X11/bin:\
 /usr/local/sbin"
+
+# load rvm
+[[ -s $HOME/.rvm/scripts/rvm ]] && . $HOME/.rvm/scripts/rvm  # This loads RVM into a shell session.
+
+# laod nvm
+[[ -s $HOME/.nvm ]] && . $HOME/.nvm/nvm.sh # This loads NVM into a shell session.
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
