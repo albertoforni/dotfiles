@@ -1,6 +1,13 @@
-# aliases
-alias b="cd .." # back one folder
+### aliases ###
+
+# back one folder
+alias b="cd .."
+
+# create a folder and cd into it
 mkcd () {
   mkdir $1
   cd $1
 }
+
+# what is running on TCP ports
+alias lstcp="sudo lsof -i -n -P | grep TCP"
