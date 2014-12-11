@@ -11,3 +11,9 @@ mkcd () {
 
 # what is running on TCP ports
 alias lstcp="sudo lsof -i -n -P | grep TCP"
+
+# fetch a specific PR from origin
+function git_pr() {
+  git fetch origin pull/"$@"/head:pr_"$@" ;
+  git checkout pr_"$@" ;
+}
