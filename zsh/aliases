@@ -17,3 +17,9 @@ function git_pr() {
   git fetch origin pull/"$@"/head:pr_"$@" ;
   git checkout pr_"$@" ;
 }
+
+# display $PATH
+function show_path() {
+  echo $PATH | tr : '\n'
+}
+
