@@ -49,8 +49,17 @@ plugins=(git brew osx)
 
 source $ZSH/oh-my-zsh.sh
 
+# load rvm
+[[ -s $HOME/.rvm/scripts/rvm ]] && . $HOME/.rvm/scripts/rvm  # This loads RVM into a shell session.
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# laod nvm
+[[ -s $HOME/.nvm ]] && . $HOME/.nvm/nvm.sh # This loads NVM into a shell session.
+
 # User configuration
 export PATH="\
+$PATH:\
 $HOME/bin:\
 /usr/local/bin:\
 /usr/bin:\
@@ -59,12 +68,6 @@ $HOME/bin:\
 /sbin:\
 /opt/X11/bin:\
 /usr/local/sbin"
-
-# load rvm
-[[ -s $HOME/.rvm/scripts/rvm ]] && . $HOME/.rvm/scripts/rvm  # This loads RVM into a shell session.
-
-# laod nvm
-[[ -s $HOME/.nvm ]] && . $HOME/.nvm/nvm.sh # This loads NVM into a shell session.
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -96,3 +99,4 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
 source $HOME/bin/dotfiles/zsh/aliases
+
