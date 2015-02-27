@@ -24,7 +24,6 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'wookiehangover/jshint.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'                   " Syntastic is a syntax checking plugin
-Plugin 'tpope/vim-bundler'                      " This is a lightweight bag of Vim goodies for Bundler
 Plugin 'tpope/vim-commentary'                   " Comment stuff out
 Plugin 'tpope/vim-endwise'                      " wisely add 'end' in ruby
 Plugin 'tpope/vim-fugitive'                     " a Git wrapper so awesome, it should be illegal
@@ -35,8 +34,12 @@ Plugin 'vim-scripts/Align'                      " Help folks to align text, eqns
 Plugin 'vim-scripts/greplace.vim'               " allow you to search and replace a pattern across multiple files
 Plugin 'vim-scripts/matchit.zip'                " allow you to configure % to match more than just single characters
 Plugin 'terryma/vim-multiple-cursors'           " True Sublime Text style multiple selections for Vim
-Plugin 'Valloric/YouCompleteMe'                 " A code-completion engine for Vim
 Plugin 'bling/vim-airline'                      " Fancy status bar
+Plugin 'ap/vim-css-color'                       " highlight colors in css files
+Plugin 'wting/rust.vim'
+Plugin 'wavded/vim-stylus'                      " Stylus css preprocessor
+Plugin 'ervandew/supertab'                      " Add Tab autocompletation
+
 " Theme
 
 " All of your Plugins must be added before the following line
@@ -57,8 +60,9 @@ filetype plugin indent on    " required
 " theme
 colorscheme molokai
 let g:molokai_original = 1
-set guifont=Monaco:h14
+set guifont=Monaco:h12
 
+" general settings
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
@@ -87,18 +91,23 @@ set wildmenu                                                 " show a navigable 
 set wildmode=longest,list,full
 set guioptions-=Be
 set guioptions=aAc
+set columns=999
+set lines=999
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 
 " keyboard shortcuts
-let mapleader = ','
-noremap <C-b> :Gblame<CR>
-noremap <C-S-b> :CoffeeCompile<CR>
-noremap <leader>l :Align
-nnoremap <leader>a :Ag<space>
+let mapleader = '\'
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>cc :CoffeeCompile<CR>
+nnoremap <leader>l :Align
+noremap <C-F> :Ag<space>
 nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <leader>t :CtrlP<CR>
 nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
