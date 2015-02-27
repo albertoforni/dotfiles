@@ -97,6 +97,7 @@ RPROMPT='[%?]'
 
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+alias vimrc="vim ~/bin/dotfiles/vim/vimrc"
 
 source $HOME/bin/dotfiles/zsh/aliases
 
