@@ -23,3 +23,19 @@ function show_path() {
   echo $PATH | tr : '\n'
 }
 
+# Node webkit
+alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
+
+# convert a mov to gif
+function convert_mov_to_gif() {
+  echo "Convert $1 from mov to gif\n"
+  fullname=$(basename "$1")
+  FILENAME="${fullname%.*}"
+  command -v ffmpeg >/dev/null 2>&1 || { echo >&2 "I require ffmpeg but it's not installed"; exit 1;}
+  if [ -f "$1" ]; then
+    ffmpeg -i "$FILENAME.mov" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=1 --delay=5 > "$FILENAME.gif"
+    echo "\n$FILENAME.gif created\n"
+  else
+    echo "$FILENAME.mov doesn't exist\n"
+  fi
+}
