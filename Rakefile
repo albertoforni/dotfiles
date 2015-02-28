@@ -1,3 +1,5 @@
+require "./apps"
+
 RED = 31
 GREEN = 32
 def color(color=GREEN)
@@ -15,7 +17,6 @@ def format(format=UNDERLINE)
   printf "\033[0m"
 end
 
-
 desc "Install Homebrew"
 task :install_homebrew do
   if system('which brew')
@@ -29,8 +30,23 @@ task :install_homebrew do
   end
 end
 
+desc "Install Homebrew cask"
+task :install_homebrew_cask do
+  format {puts "\nInstall brew cask"}
+  begin
+    sh "brew install caskroom/cask/brew-cask"
+  rescue Exception => exception
+    color(RED) {puts exception}
+  end
+  format {puts "\nInstall software"}
+  APPS.each do |software|
+    color {puts "Install #{software}"}
+    sh "brew cask install #{software}"
+  end
+end
+
 desc "Setup your Mac"
-task :setup => [:install_homebres, :install_mvim]
+task :setup => [:install_homebres, :install_mvim, :install_homebrew_cask]
 
 desc "List of the tasks"
 task :default do
