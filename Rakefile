@@ -46,7 +46,7 @@ task :install_homebrew_cask do
 end
 
 desc "Setup your Mac"
-task :setup => [:install_homebres, :install_mvim, :install_homebrew_cask]
+task :setup => [:install_homebrew, :install_homebrew_cask]
 
 desc "List of the tasks"
 task :default do
