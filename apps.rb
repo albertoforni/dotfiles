@@ -12,5 +12,8 @@ APPS = %w(
   iterm2
   dropbox
   google-hangouts
+  flux
+  skype
+  github
 )
 
