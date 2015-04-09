@@ -1,0 +1,23 @@
+[color]
+	ui = true
+[user]
+	name = Alberto Forni
+	email = alberto.forn@gmail.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[push]
+	default = simple
+[alias]
+    st = status
+    df = diff
+    ds = diff --stat -r
+    ci = commit
+    co = checkout
+    br = branch
+    ll = pull
+    sh = push
