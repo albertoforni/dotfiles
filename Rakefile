@@ -1,3 +1,4 @@
+require "./terminal_apps"
 require "./apps"
 
 RED = 31
@@ -27,6 +28,22 @@ task :install_homebrew do
     end
   else
     sh 'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+  end
+end
+
+desc "Install Homebrew formulas"
+task :install_homebrew_formulas do
+  if system('which brew')
+    format {puts "\nInstall software"}
+    TERMINAL_APPS.each do |software|
+      color {puts "Install #{software}"}
+      sh "brew install #{software}"
+    end
+  else
+    color(RED) { puts 'homebrew is not installed! Do you wanna install it? (y/n)' }
+    if resp.downcase == 'y'
+      Rake::Task["build"].invoke
+    end
   end
 end
 
