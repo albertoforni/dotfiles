@@ -15,5 +15,6 @@ APPS = %w(
   flux
   skype
   github
+  android-file-transfer
 )
 
