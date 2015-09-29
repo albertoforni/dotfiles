@@ -16,5 +16,6 @@ APPS = %w(
   skype
   github
   android-file-transfer
+  totalterminal
 )
 
