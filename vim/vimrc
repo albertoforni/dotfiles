@@ -7,6 +7,8 @@ set nocompatible
 " enable syntax highlighting
 syntax enable
 
+"{{{ Vundle config
+
 " configure Vundle
 filetype off
 
@@ -24,7 +26,6 @@ Plugin 'kien/ctrlp.vim'                         " https://github.com/kien/ctrlp.
 Plugin 'rking/ag.vim'
 Plugin 'nathanaelkane/vim-indent-guides'        " Indent Guides is a plugin for visually displaying indent
 Plugin 'pangloss/vim-javascript'
-Plugin 'wookiehangover/jshint.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'                   " Syntastic is a syntax checking plugin
 Plugin 'tpope/vim-commentary'                   " Comment stuff out
@@ -39,9 +40,9 @@ Plugin 'vim-scripts/matchit.zip'                " allow you to configure % to ma
 Plugin 'terryma/vim-multiple-cursors'           " True Sublime Text style multiple selections for Vim
 Plugin 'bling/vim-airline'                      " Fancy status bar
 Plugin 'ap/vim-css-color'                       " highlight colors in css files
-Plugin 'wting/rust.vim'
 Plugin 'wavded/vim-stylus'                      " Stylus css preprocessor
-Plugin 'ervandew/supertab'                      " Add Tab autocompletation
+Plugin 'Shougo/neocomplete.vim'                 " Code autocomplete
+Plugin 'jiangmiao/auto-pairs'                   " Pair parentesis
 
 " Theme
 Plugin 'altercation/vim-colors-solarized'
@@ -61,15 +62,31 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line ensure ftdetect et al work by including this after the Vundle stuff
 
-" Theme
+
+" Syntastic Configs
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+"}}}
+
+"{{{ Theme
 set background=dark
-" solarized options
+" solarized options these settings are required to use vim inside iterm
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 let g:solarized_termcolors=256
 colorscheme solarized
 
-" general settings
+"}}}
+
+"{{{ general settings
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
@@ -84,7 +101,7 @@ set hlsearch                                                 " highlight search
 set cursorline                                               " don't highlight current line
 set laststatus=2                                             " always show statusline
 set list                                                     " show trailing whitespace
-set listchars=tab:▸\ ,eol:¬,nbsp:⋅,trail:•
+set listchars=tab:▸\ ,nbsp:⋅,trail:•
 set number                                                   " show line numbers
 set relativenumber                                           " show relative line numbers
 set ruler                                                    " show where you are
@@ -102,8 +119,88 @@ set guioptions=aAc
 set columns=999
 set lines=999
 
+"folding settings
+set foldmethod=marker   "fold based on markers
+set nofoldenable        "dont fold by default
+
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
+
+"}}}
+
+"{{{ Autocomplete settings
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"}}}
 
 " keyboard shortcuts
 let mapleader = '\'
@@ -111,7 +208,6 @@ nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>cc :CoffeeCompile<CR>
 nnoremap <leader>l :Align
 noremap <C-F> :Ag<space>
 nnoremap <leader>b :CtrlPBuffer<CR>
