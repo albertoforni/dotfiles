@@ -15,6 +15,10 @@ Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'benekastah/neomake'
+Plug 'nathanaelkane/vim-indent-guides'        " Indent Guides is a plugin for visually displaying indent
+Plug 'ap/vim-css-color', { 'for': ['css', 'sass', 'scss'] } " highlight colors in css files
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jiangmiao/auto-pairs'
 
 " theme
 Plug 'mhartington/oceanic-next'
@@ -63,9 +67,19 @@ set listchars=tab:▸\ ,eol:¬,nbsp:⋅,trail:•
 set number                                                   " show line numbers
 set ruler                                                    " show where you are
 set clipboard=unnamed                                        " clipboard sharing
+set autoindent
+set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
+set backspace=2                                              " Fix broken backspace in some setups
+set expandtab                                                " expand tabs to spaces
+set ignorecase                                               " case-insensitive search
+set incsearch                                                " search as you type
+set smartcase                                                " case-sensitive search if any caps
+set laststatus=2                                             " always show statusline
 
 " Mappings
 map <C-\> :NERDTreeToggle<CR>
+noremap <C-F> :Ag<space>
+nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
 
 " Trim white spaces
 function! TrimWhiteSpace()
@@ -73,4 +87,3 @@ function! TrimWhiteSpace()
 endfunction
 
 autocmd BufWritePre * :call TrimWhiteSpace()
-
