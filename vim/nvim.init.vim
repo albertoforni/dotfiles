@@ -15,14 +15,6 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 
-" vim-airline =================================================================
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" vim-airline settings, enable powerline fonts
-let g:airline_theme='oceanicnext'
-let g:airline_powerline_fonts = 1
-" ==============================================================================
-
 " syntastic ===================================================================
 Plug 'scrooloose/syntastic'
 
@@ -104,6 +96,14 @@ syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme OceanicNext
 set background=dark
+" ==============================================================================
+
+" vim-airline =================================================================
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" vim-airline settings, enable powerline fonts
+let g:airline_theme='oceanicnext' " this must come after the theme installation
+let g:airline_powerline_fonts = 1
 " ==============================================================================
 
 call plug#end()
