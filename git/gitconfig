@@ -2,10 +2,10 @@
 	ui = true
 [user]
 	name = Alberto Forni
-	email = alberto.forn@gmail.com
+	email = me@albertoforni.com
 [core]
-	editor = vim
 	excludesfile = ~/.gitignore
+	editor = nvim
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -13,14 +13,14 @@
 [push]
 	default = simple
 [alias]
-    st = status
-    df = diff
-    ds = diff --stat -r
-    ci = commit
-    co = checkout
-    br = branch
-    ll = pull
-    sh = push
+        st = status
+        df = diff
+        ds = diff --stat -r
+        ci = commit
+        co = checkout
+        br = branch
+        ll = pull
+        sh = push
 [filter "hawser"]
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
