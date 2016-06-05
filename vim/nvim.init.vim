@@ -94,7 +94,6 @@ Plug 'mhartington/oceanic-next'
 
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-colorscheme OceanicNext
 set background=dark
 " ==============================================================================
 
@@ -111,6 +110,7 @@ call plug#end()
 
 
 " Options
+colorscheme OceanicNext
 setlocal spell spelllang=en_us
 set mouse=a                                                  " Enable mouse in all modes
 set noswapfile                                               " Don't make backups.
