@@ -1,6 +1,9 @@
 require "./terminal_apps"
 require "./apps"
 
+$home = ENV['HOME']
+raise "#{$home} is not a directory" if not File.directory? $home
+
 RED = 31
 GREEN = 32
 def color(color=GREEN)
@@ -51,7 +54,7 @@ desc "Install Homebrew cask"
 task :install_homebrew_cask do
   format {puts "\nInstall brew cask"}
   begin
-    sh "brew install caskroom/cask/brew-cask"
+    sh "brew tap caskroom/cask"
   rescue Exception => exception
     color(RED) {puts exception}
   end
@@ -62,8 +65,23 @@ task :install_homebrew_cask do
   end
 end
 
+desc "Install oh-my-zsh"
+task :install_zsh do
+  format {puts "\nInstall oh-my-zsh"}
+  sh 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
+
+  format {puts "\nSetup .zshrc"}
+  zshrc = File.join($home, '.zshrc')
+  mv zshrc, File.join($home, '.zshrc.bak') if File.exists? zshrc
+  ln_s File.join($home, 'bin', 'dotfiles', 'zsh', 'zshrc'), zshrc
+
+  format {puts "\nInstall autosuggestions plugin"}
+  sh "git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" unless Dir.exists? File.join($home, '.oh-my-zsh/custom/plugins/zsh-autosuggestions')
+  format {puts "\nRun \"source ~/.zshrc\" to get syntax-highlight working"}
+end
+
 desc "Setup your Mac"
-task :setup => [:install_homebrew, :install_homebrew_cask]
+task :setup => [:install_homebrew, :install_homebrew_cask, :install_zsh]
 
 desc "List of the tasks"
 task :default do

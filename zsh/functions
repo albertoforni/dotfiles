@@ -1,0 +1,40 @@
+# create a folder and cd into it
+mkcd () {
+  mkdir $1
+  cd $1
+}
+
+# what is running on TCP ports
+alias lstcp="sudo lsof -i -n -P | grep TCP"
+
+# display $PATH
+function show_path() {
+  echo $PATH | tr : '\n'
+}
+
+display_folder_by_size(){
+  # Explanation:
+  #
+  # du: Disk Usage
+  #
+  # -s: Display an entry for each specified file. (Equivalent to -d 0)
+  #
+  # -h: "Human-readable" output. Use unit suffixes: Byte, Kilobyte, Megabyte, Gigabyte, Terabyte and Petabyte.
+  du -sh *
+}
+
+# create gifs from movs 
+# requires `brew install ffmpeg gifsicle imagemagick` 
+gifify() { 
+  if [[ -n "$1" ]]; then 
+    if [[ $2 == '--good' ]]; then 
+      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png 
+      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif 
+      rm out-static*.png 
+    else 
+      ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif 
+    fi 
+  else 
+    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension." 
+  fi 
+} 

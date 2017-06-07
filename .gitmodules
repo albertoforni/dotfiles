@@ -1,9 +1,0 @@
-[submodule "vim/janus/vim-stylus"]
-	path = vim/janus/vim-stylus
-	url = git://github.com/wavded/vim-stylus.git
-[submodule "vim/janus/vim-coloresque"]
-	path = vim/janus/vim-coloresque
-	url = https://github.com/gorodinskiy/vim-coloresque.git
-[submodule "vim/janus/vim-airline"]
-	path = vim/janus/vim-airline
-	url = https://github.com/bling/vim-airline

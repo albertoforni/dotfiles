@@ -1,10 +1,7 @@
 APPS = %w(
   google-chrome
   firefox
-  macvim
   1password
-  atom
-  dash
   evernote
   spotify
   vlc
@@ -14,7 +11,8 @@ APPS = %w(
   google-hangouts
   flux
   skype
-  github
-  android-file-transfer
-  vagrant
+  fastlane
+  discord
+  caffeine
+  visual-studio-code
 )

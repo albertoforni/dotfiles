@@ -1,5 +1,12 @@
 TERMINAL_APPS = %w(
-  fish
-  n
-  watchman
+  ffmpeg
+  gifsicle 
+  git-lfs
+  imagemagick
+  ninja
+  ocaml
+  opam
+  yarn
+  youtube-dl
+  zsh-syntax-highlighting
 )
