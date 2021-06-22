@@ -11,7 +11,7 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [push]
-	default = simple
+	default = current
 [alias]
 	st = status
 	df = diff
@@ -29,3 +29,15 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
+[gui]
+	recentrepo = /Users/albertoforni/code/bwmacos
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/albertoforni/.stCommitMsg
+[init]
+	defaultBranch = main

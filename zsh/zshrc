@@ -1,3 +1,6 @@
+source $HOME/bin/dotfiles/zsh/functions
+`printenvchain bw`
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -75,6 +78,9 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+# Start your command with a space and it won't be included in the history
+setopt HIST_IGNORE_SPACE
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -90,15 +96,16 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 ###
 # Custom stuff
 ###
+export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="/Users/albertoforni/Library/Python/3.8/bin:/usr/local/bin:$PATH"
 export DEFAULT_USER=albertoforni
-export EDITOR=vim
+export EDITOR=oni2
 
+alias vim="nvim"
+alias vi="nvim"
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vimrc="vim ~/bin/dotfiles/vim/vimrc"
-
-# ocaml
-. /Users/albertoforni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # docker
 docker_login() { 
@@ -106,11 +113,26 @@ docker_login() {
   docker exec -t -i `docker ps | grep $prefix | awk '{print $1}'` bash 
 } 
 alias dl=docker_login 
- 
-# fastlane ios development
-export PATH="$HOME/.fastlane/bin:$PATH"
 
 source $HOME/bin/dotfiles/zsh/functions
+ 
+# fastlane ios development
 
 # To activate the syntax highlighting, add the following at the end of your .zshrc:
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/albertoforni/Projects/ahaloop-backend/node_modules/tabtab/.completions/slss.zsh
+
+# add time to the right
+RPROMPT="[%D{%y/%m/%f}|%@]"
+
+# opam configuration
+test -r /Users/albertoforni/.opam/opam-init/init.zsh && . /Users/albertoforni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
