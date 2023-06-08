@@ -1,3 +1,13 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+
 source $HOME/bin/dotfiles/zsh/functions
 `printenvchain bw`
 
@@ -5,12 +15,12 @@ source $HOME/bin/dotfiles/zsh/functions
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/albertoforni/.oh-my-zsh
+export ZSH="/Users/albertoforni/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -64,6 +74,7 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export GH_TOKEN="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"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -96,10 +107,8 @@ setopt HIST_IGNORE_SPACE
 ###
 # Custom stuff
 ###
-export PATH="/usr/local/opt/curl/bin:$PATH"
-export PATH="/Users/albertoforni/Library/Python/3.8/bin:/usr/local/bin:$PATH"
 export DEFAULT_USER=albertoforni
-export EDITOR=oni2
+export EDITOR=zed
 
 alias vim="nvim"
 alias vi="nvim"
@@ -116,10 +125,8 @@ alias dl=docker_login
 
 source $HOME/bin/dotfiles/zsh/functions
  
-# fastlane ios development
-
 # To activate the syntax highlighting, add the following at the end of your .zshrc:
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -134,5 +141,19 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # add time to the right
 RPROMPT="[%D{%y/%m/%f}|%@]"
 
-# opam configuration
-test -r /Users/albertoforni/.opam/opam-init/init.zsh && . /Users/albertoforni/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# pnpm
+export PNPM_HOME="/Users/albertoforni/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

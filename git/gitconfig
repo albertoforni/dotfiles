@@ -4,7 +4,7 @@
 	name = Alberto Forni
 	email = me@albertoforni.com
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/albertoforni/.gitignore
 	editor = vim
 [filter "media"]
 	required = true
