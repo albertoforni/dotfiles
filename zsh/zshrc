@@ -6,7 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+# export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+export PATH="$(brew --prefix)/opt/python@3.10/libexec/bin:$PATH"
 
 source $HOME/bin/dotfiles/zsh/functions
 `printenvchain bw`
